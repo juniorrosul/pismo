@@ -1,7 +1,7 @@
-package accounts
+package account
 
 // Account struct
 type Account struct {
-	ID             string `json:"id"`
+	ID             int    `json:"id"`
 	DocumentNumber string `json:"document_number"`
 }
