@@ -8,8 +8,8 @@ import (
 
 type Account struct{}
 
-func (a *Account) Decode(input []byte) (*account.Account, error) {
-	account := &account.Account{}
+func (a *Account) Decode(input []byte) (*account.Model, error) {
+	account := &account.Model{}
 
 	if err := json.Unmarshal(input, account); err != nil {
 		return nil, err
@@ -17,7 +17,7 @@ func (a *Account) Decode(input []byte) (*account.Account, error) {
 	return account, nil
 }
 
-func (a *Account) Encode(input *account.Account) ([]byte, error) {
+func (a *Account) Encode(input *account.Model) ([]byte, error) {
 	encoded, err := json.Marshal(input)
 
 	if err != nil {

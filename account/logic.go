@@ -18,10 +18,10 @@ func NewAccountService(accountRepository Repository) Service {
 	}
 }
 
-func (a *accountService) Find(id int) (*Account, error) {
+func (a *accountService) Find(id int) (*Model, error) {
 	return a.accountRepository.Find(id)
 }
 
-func (a *accountService) Store(account *Account) error {
+func (a *accountService) Store(account *Model) error {
 	return a.accountRepository.Store(account)
 }

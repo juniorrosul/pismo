@@ -2,6 +2,6 @@ package account
 
 // Repository interface
 type Repository interface {
-	Find(id int) (*Account, error)
-	Store(account *Account) error
+	Find(id int) (*Model, error)
+	Store(account *Model) error
 }
