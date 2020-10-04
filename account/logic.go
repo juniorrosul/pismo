@@ -11,13 +11,6 @@ type accountService struct {
 	accountRepository Repository
 }
 
-// NewAccountService service initializer
-func NewAccountService(accountRepository Repository) Service {
-	return &accountService{
-		accountRepository,
-	}
-}
-
 func (a *accountService) Find(id int) (*Model, error) {
 	return a.accountRepository.Find(id)
 }

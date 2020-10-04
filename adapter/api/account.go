@@ -4,18 +4,30 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 
-	"madsonjr.com/pismo/account"
+	repository "madsonjr.com/pismo/adapter/repository/mysql"
 	"madsonjr.com/pismo/adapter/serializer"
 )
 
 type handler struct {
-	service    account.Service
 	serializer serializer.Account
+	repository repository.Account
 }
 
+// NewAccountsHandler handler initializer
 func NewAccountsHandler() *handler {
 	return &handler{}
+}
+
+func (h *handler) Get(w http.ResponseWriter, r *http.Request) {
+	urlParser := strings.Split(r.URL.String(), "/")
+	if len(urlParser) != 3 {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	_ = urlParser[2]
 }
 
 func (h *handler) Post(w http.ResponseWriter, r *http.Request) {
@@ -34,19 +46,19 @@ func (h *handler) Post(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err = h.serializer.Decode(bodyBytes)
+	account, err := h.serializer.Decode(bodyBytes)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(fmt.Sprintf("Invalid content")))
 		return
 	}
 
-	// err = h.service.Store(account)
-	// if err != nil {
-	// 	w.WriteHeader(http.StatusBadRequest)
-	// 	w.Write([]byte(fmt.Sprintf("Invalid content")))
-	// 	return
-	// }
+	err = h.repository.Store(account)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(fmt.Sprintf("Invalid content")))
+		return
+	}
 
 	w.WriteHeader(http.StatusCreated)
 	return
