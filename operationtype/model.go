@@ -1,4 +1,4 @@
-package operationtypes
+package operationtype
 
 // OperationType struct
 type OperationType struct {
