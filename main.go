@@ -12,6 +12,7 @@ func main() {
 	accountsHandler := api.NewAccountsHandler()
 
 	http.HandleFunc("/accounts", accountsHandler.Accounts)
+	http.HandleFunc("/accounts/", accountsHandler.Accounts)
 
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {

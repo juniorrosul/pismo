@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 	"strings"
 
-	repository "madsonjr.com/pismo/adapter/repository/mysql"
+	repository "madsonjr.com/pismo/adapter/repository/sqlite"
 	"madsonjr.com/pismo/adapter/serializer"
 )
 
@@ -27,7 +28,28 @@ func (h *handler) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_ = urlParser[2]
+	accountID, err := strconv.Atoi(urlParser[2])
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	account, err := h.repository.Find(accountID)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+
+	encoded, err := h.serializer.Encode(account)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(encoded)
+	return
 }
 
 func (h *handler) Post(w http.ResponseWriter, r *http.Request) {
@@ -68,6 +90,9 @@ func (h *handler) Accounts(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "POST":
 		h.Post(w, r)
+		return
+	case "GET":
+		h.Get(w, r)
 		return
 	}
 }
