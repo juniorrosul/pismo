@@ -11,13 +11,18 @@ import (
 )
 
 func main() {
-	fmt.Println("PISMO")
-	accountsHandler := api.NewAccountsHandler()
+	fmt.Println("PISMO - API")
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/accounts", accountsHandler.Post).Methods("POST")
-	router.HandleFunc("/accounts/{id:[0-9]+}", accountsHandler.Get).Methods("GET")
+	// Accounts routes
+	accountsHandler := api.AccountsHandler()
+	router.HandleFunc("/accounts", accountsHandler.AccountPost).Methods("POST")
+	router.HandleFunc("/accounts/{id:[0-9]+}", accountsHandler.AccountGet).Methods("GET")
+
+	// Transactions routes
+	transactionHandler := api.TransactionHandler()
+	router.HandleFunc("/transactions", transactionHandler.TransactionPost).Methods("POST")
 
 	srv := &http.Server{
 		Handler: router,

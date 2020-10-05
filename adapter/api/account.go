@@ -11,17 +11,17 @@ import (
 	"madsonjr.com/pismo/adapter/serializer"
 )
 
-type handler struct {
+type accountHandler struct {
 	serializer serializer.Account
 	repository repository.Account
 }
 
-// NewAccountsHandler handler initializer
-func NewAccountsHandler() *handler {
-	return &handler{}
+// AccountsHandler handler initializer
+func AccountsHandler() *accountHandler {
+	return &accountHandler{}
 }
 
-func (h *handler) Get(w http.ResponseWriter, r *http.Request) {
+func (h *accountHandler) AccountGet(w http.ResponseWriter, r *http.Request) {
 	urlParser := strings.Split(r.URL.String(), "/")
 	if len(urlParser) != 3 {
 		w.WriteHeader(http.StatusBadRequest)
@@ -52,7 +52,7 @@ func (h *handler) Get(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func (h *handler) Post(w http.ResponseWriter, r *http.Request) {
+func (h *accountHandler) AccountPost(w http.ResponseWriter, r *http.Request) {
 	bodyBytes, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
 	if err != nil {
