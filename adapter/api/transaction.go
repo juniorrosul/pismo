@@ -5,12 +5,12 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	repository "madsonjr.com/pismo/adapter/repository/sqlite"
 	"madsonjr.com/pismo/adapter/serializer"
-	"madsonjr.com/pismo/transaction"
 )
 
 type transactionHandler struct {
-	repository transaction.Repository
+	repository repository.Transaction
 	serializer serializer.Transaction
 }
 
@@ -42,7 +42,15 @@ func (h *transactionHandler) TransactionPost(w http.ResponseWriter, r *http.Requ
 		panic(err.Error())
 	}
 	fmt.Println(transaction)
+
+	err = h.repository.Store(transaction)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(fmt.Sprintf("Error")))
+		panic(err.Error())
+	}
+
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusNotImplemented)
+	w.WriteHeader(http.StatusCreated)
 	return
 }
