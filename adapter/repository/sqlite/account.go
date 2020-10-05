@@ -18,7 +18,7 @@ func checkTable() {
 	}
 
 	if db.Migrator().HasTable(tableName) == false {
-		db.Migrator().CreateTable(&account.Model{})
+		db.Table(tableName).AutoMigrate(&account.Model{})
 	}
 }
 
@@ -30,7 +30,10 @@ func (a *Account) Find(id int) (*account.Model, error) {
 	}
 
 	var account account.Model
-	db.Table(tableName).First(&account, id)
+	result := db.Table(tableName).First(&account, id)
+	if result.Error != nil {
+		return nil, result.Error
+	}
 
 	return &account, nil
 }

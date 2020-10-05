@@ -1,10 +1,7 @@
 package account
 
-import "gorm.io/gorm"
-
 // Model struct
 type Model struct {
-	gorm.Model
-	ID             int    `json:"id"`
-	DocumentNumber string `json:"document_number"`
+	ID             int    `json:"id" gorm:"primaryKey"`
+	DocumentNumber string `json:"document_number" gorm:"document_number"`
 }
