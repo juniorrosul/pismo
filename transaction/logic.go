@@ -1,20 +1,14 @@
 package transaction
 
 type transactionService struct {
-	transactionRepository Repository
+	repository Repository
+	serializer Serializer
 }
 
-// NewTransactionService initializer
-func NewTransactionService(transactionRepository Repository) Service {
-	return &transactionService{
-		transactionRepository,
-	}
+func (t *transactionService) Decode(input []byte) (*Model, error) {
+	return t.serializer.Decode(input)
 }
 
-func (t *transactionService) Find(id int) (*Transaction, error) {
-	return t.transactionRepository.Find(id)
-}
-
-func (t *transactionService) Store(transaction *Transaction) error {
-	return t.transactionRepository.Store(transaction)
+func (t *transactionService) Store(transaction *Model) error {
+	return t.repository.Store(transaction)
 }

@@ -48,6 +48,6 @@ func (a *Account) Store(account *account.Model) error {
 		panic(err.Error())
 	}
 
-	db.Table("accounts").Create(account)
+	db.Table(accountTable).Create(account)
 	return nil
 }
