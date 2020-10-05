@@ -2,6 +2,6 @@ package account
 
 // Serializer interface
 type Serializer interface {
-	Decode(input []byte) (*Account, error)
-	Encode(input *Account) ([]byte, error)
+	Decode(input []byte) (*Model, error)
+	Encode(input *Model) ([]byte, error)
 }

@@ -2,6 +2,6 @@ package transaction
 
 // Serializer interface
 type Serializer interface {
-	Decode(input []byte) (*Transaction, error)
+	Decode(input []byte) (*Model, error)
 	Encode(input []byte) ([]byte, error)
 }
