@@ -19,6 +19,10 @@ func TransactionHandler() *transactionHandler {
 	return &transactionHandler{}
 }
 
+func (h *transactionHandler) Initialize() {
+	h.repository.Initialize()
+}
+
 func (h *transactionHandler) TransactionPost(w http.ResponseWriter, r *http.Request) {
 	bodyBytes, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()

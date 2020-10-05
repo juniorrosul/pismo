@@ -32,3 +32,9 @@ func (t *Transaction) Store(transaction *transaction.Model) error {
 	db.Table(transactionTable).Create(transaction)
 	return nil
 }
+
+// Initialize implementation
+func (t *Transaction) Initialize() error {
+	checkTransactionTable()
+	return nil
+}

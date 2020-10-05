@@ -21,6 +21,10 @@ func AccountsHandler() *accountHandler {
 	return &accountHandler{}
 }
 
+func (h *accountHandler) Initialize() {
+	h.repository.Initialize()
+}
+
 func (h *accountHandler) AccountGet(w http.ResponseWriter, r *http.Request) {
 	urlParser := strings.Split(r.URL.String(), "/")
 	if len(urlParser) != 3 {

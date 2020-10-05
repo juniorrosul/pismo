@@ -15,13 +15,18 @@ func main() {
 
 	router := mux.NewRouter()
 
-	// Accounts routes
+	// Operation Type
+	api.OperationTypeHandler().Initialize()
+
+	// Accounts
 	accountsHandler := api.AccountsHandler()
+	accountsHandler.Initialize()
 	router.HandleFunc("/accounts", accountsHandler.AccountPost).Methods("POST")
 	router.HandleFunc("/accounts/{id:[0-9]+}", accountsHandler.AccountGet).Methods("GET")
 
-	// Transactions routes
+	// Transactions
 	transactionHandler := api.TransactionHandler()
+	transactionHandler.Initialize()
 	router.HandleFunc("/transactions", transactionHandler.TransactionPost).Methods("POST")
 
 	srv := &http.Server{

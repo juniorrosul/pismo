@@ -23,6 +23,10 @@ func checkAccountTable() {
 	}
 }
 
+func (a *Account) Initialize() {
+	checkAccountTable()
+}
+
 // Find implementation
 func (a *Account) Find(id int) (*account.Model, error) {
 	checkAccountTable()

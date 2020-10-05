@@ -4,4 +4,5 @@ package account
 type Repository interface {
 	Find(id int) (*Model, error)
 	Store(account *Model) error
+	Initialize()
 }
