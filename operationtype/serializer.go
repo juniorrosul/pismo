@@ -2,6 +2,6 @@ package operationtype
 
 // Serializer interface
 type Serializer interface {
-	Decode(input []byte) (*OperationType, error)
-	Encode(input *OperationType) ([]byte, error)
+	Decode(input []byte) (*Model, error)
+	Encode(input *Model) ([]byte, error)
 }

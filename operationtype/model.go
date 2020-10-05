@@ -1,7 +1,7 @@
 package operationtype
 
-// OperationType struct
-type OperationType struct {
+// Model struct
+type Model struct {
 	ID          int    `json:"id"`
 	Description string `json:"description"`
 }

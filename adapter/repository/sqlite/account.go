@@ -6,31 +6,33 @@ import (
 	"madsonjr.com/pismo/account"
 )
 
+// Account struct
 type Account struct{}
 
-var tableName = "accounts"
+var accountTable = "accounts"
 
-func checkTable() {
+func checkAccountTable() {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 
 	if err != nil {
 		panic(err.Error())
 	}
 
-	if db.Migrator().HasTable(tableName) == false {
-		db.Table(tableName).AutoMigrate(&account.Model{})
+	if db.Migrator().HasTable(accountTable) == false {
+		db.Table(accountTable).AutoMigrate(&account.Model{})
 	}
 }
 
+// Find implementation
 func (a *Account) Find(id int) (*account.Model, error) {
-	checkTable()
+	checkAccountTable()
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	if err != nil {
 		panic(err.Error())
 	}
 
 	var account account.Model
-	result := db.Table(tableName).First(&account, id)
+	result := db.Table(accountTable).First(&account, id)
 	if result.Error != nil {
 		return nil, result.Error
 	}
@@ -38,8 +40,9 @@ func (a *Account) Find(id int) (*account.Model, error) {
 	return &account, nil
 }
 
+// Store implementation
 func (a *Account) Store(account *account.Model) error {
-	checkTable()
+	checkAccountTable()
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	if err != nil {
 		panic(err.Error())

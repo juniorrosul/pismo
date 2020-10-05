@@ -2,5 +2,5 @@ package operationtype
 
 // Service interface
 type Service interface {
-	Find(id int) (*OperationType, error)
+	Find(id int) (*Model, error)
 }

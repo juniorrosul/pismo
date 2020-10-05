@@ -10,6 +10,6 @@ func newOperationTypeService(operationTypeRepository Repository) Service {
 	}
 }
 
-func (ot *operationTypeService) Find(id int) (*OperationType, error) {
+func (ot *operationTypeService) Find(id int) (*Model, error) {
 	return ot.operationTypeRepository.Find(id)
 }
