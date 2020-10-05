@@ -85,14 +85,3 @@ func (h *handler) Post(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	return
 }
-
-func (h *handler) Accounts(w http.ResponseWriter, r *http.Request) {
-	switch r.Method {
-	case "POST":
-		h.Post(w, r)
-		return
-	case "GET":
-		h.Get(w, r)
-		return
-	}
-}
