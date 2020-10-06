@@ -1,6 +1,9 @@
 package mysqlconnection
 
 import (
+	"fmt"
+	"time"
+
 	"github.com/juniorrosul/pismo/transaction"
 )
 
@@ -16,7 +19,13 @@ func (t *Transaction) Initialize() error {
 }
 
 func checkTransactionTable() {
-	db := connect()
+	checkOperationTypeTable()
+
+	db, err := connect()
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 
 	if db.Migrator().HasTable(transactionTable) == false {
 		db.AutoMigrate(&transaction.Model{})
@@ -25,8 +34,15 @@ func checkTransactionTable() {
 
 // Store implementation
 func (t *Transaction) Store(transaction *transaction.Model) error {
-	db := connect()
+	checkTransactionTable()
+	db, err := connect()
+	if err != nil {
+		fmt.Println(err.Error())
+		return err
+	}
 
-	db.Table(transactionTable).Create(transaction)
+	transaction.EventDate = time.Now()
+
+	db.Create(transaction)
 	return nil
 }

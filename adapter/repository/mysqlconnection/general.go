@@ -9,19 +9,16 @@ import (
 
 const (
 	dbName     = "pismo"
-	dbHost     = "127.0.0.1"
+	dbHost     = "localhost"
 	dbUser     = "madsonjr"
 	dbPassword = "pismo"
 	dbPort     = "3306"
 )
 
-func connect() *gorm.DB {
+func connect() (*gorm.DB, error) {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", dbUser, dbPassword, dbHost, dbPort, dbName)
+	fmt.Println(dsn)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
-	if err != nil {
-		panic(err.Error())
-	}
-
-	return db
+	return db, err
 }

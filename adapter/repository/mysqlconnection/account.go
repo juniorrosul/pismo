@@ -1,6 +1,8 @@
 package mysqlconnection
 
 import (
+	"fmt"
+
 	"github.com/juniorrosul/pismo/account"
 )
 
@@ -10,7 +12,12 @@ type Account struct{}
 var accountTable = "accounts"
 
 func checkAccountTable() {
-	db := connect()
+	db, err := connect()
+
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 
 	if db.Migrator().HasTable(accountTable) == false {
 		db.AutoMigrate(&account.Model{})
@@ -25,7 +32,11 @@ func (a *Account) Initialize() {
 // Find implementation
 func (a *Account) Find(id int) (*account.Model, error) {
 	checkAccountTable()
-	db := connect()
+	db, err := connect()
+	if err != nil {
+		fmt.Println(err.Error())
+		return nil, err
+	}
 
 	var account account.Model
 	result := db.Table(accountTable).First(&account, id)
@@ -39,7 +50,11 @@ func (a *Account) Find(id int) (*account.Model, error) {
 // Store implementation
 func (a *Account) Store(account *account.Model) error {
 	checkAccountTable()
-	db := connect()
+	db, err := connect()
+	if err != nil {
+		fmt.Println(err.Error())
+		return err
+	}
 
 	db.Table(accountTable).Create(account)
 	return nil
