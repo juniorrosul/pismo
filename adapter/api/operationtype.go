@@ -1,11 +1,11 @@
 package api
 
 import (
-	repository "github.com/juniorrosul/pismo/adapter/repository/sqlite"
+	"github.com/juniorrosul/pismo/adapter/repository/sqlite"
 )
 
 type operationTypeHandler struct {
-	repository repository.OperationType
+	repository sqlite.OperationType
 }
 
 // OperationTypeHandler initializer

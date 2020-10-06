@@ -7,13 +7,13 @@ import (
 	"strconv"
 	"strings"
 
-	repository "github.com/juniorrosul/pismo/adapter/repository/sqlite"
+	"github.com/juniorrosul/pismo/adapter/repository/sqlite"
 	"github.com/juniorrosul/pismo/adapter/serializer"
 )
 
 type accountHandler struct {
 	serializer serializer.Account
-	repository repository.Account
+	repository sqlite.Account
 }
 
 // AccountsHandler handler initializer
