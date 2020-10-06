@@ -1,5 +1,15 @@
 # pismo
 
+# Local development environment
+
+The following commands are needed to build and run the application:
+
+```
+go build main.go
+
+./main
+```
+
 # Working using docker
 
 To build docker use:
