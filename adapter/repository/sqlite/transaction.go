@@ -1,9 +1,9 @@
 package repository
 
 import (
+	"github.com/juniorrosul/pismo/transaction"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	"madsonjr.com/pismo/transaction"
 )
 
 type Transaction struct{}

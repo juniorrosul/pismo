@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"madsonjr.com/pismo/adapter/api"
+	"github.com/juniorrosul/pismo/adapter/api"
 )
 
 func main() {

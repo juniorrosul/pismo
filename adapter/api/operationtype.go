@@ -1,7 +1,7 @@
 package api
 
 import (
-	repository "madsonjr.com/pismo/adapter/repository/sqlite"
+	repository "github.com/juniorrosul/pismo/adapter/repository/sqlite"
 )
 
 type operationTypeHandler struct {

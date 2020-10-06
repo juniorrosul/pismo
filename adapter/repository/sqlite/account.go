@@ -1,9 +1,9 @@
 package repository
 
 import (
+	"github.com/juniorrosul/pismo/account"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	"madsonjr.com/pismo/account"
 )
 
 // Account struct

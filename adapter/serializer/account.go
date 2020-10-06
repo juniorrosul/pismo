@@ -3,7 +3,7 @@ package serializer
 import (
 	"encoding/json"
 
-	"madsonjr.com/pismo/account"
+	"github.com/juniorrosul/pismo/account"
 )
 
 type Account struct{}
