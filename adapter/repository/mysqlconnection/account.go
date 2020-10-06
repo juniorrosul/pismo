@@ -1,9 +1,9 @@
-package sqlite
+package mysqlconnection
 
 import (
+	"fmt"
+
 	"github.com/juniorrosul/pismo/account"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 )
 
 // Account struct
@@ -12,17 +12,19 @@ type Account struct{}
 var accountTable = "accounts"
 
 func checkAccountTable() {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	db, err := connect()
 
 	if err != nil {
-		panic(err.Error())
+		fmt.Println(err.Error())
+		return
 	}
 
 	if db.Migrator().HasTable(accountTable) == false {
-		db.Table(accountTable).AutoMigrate(&account.Model{})
+		db.AutoMigrate(&account.Model{})
 	}
 }
 
+// Initialize implementation
 func (a *Account) Initialize() {
 	checkAccountTable()
 }
@@ -30,9 +32,10 @@ func (a *Account) Initialize() {
 // Find implementation
 func (a *Account) Find(id int) (*account.Model, error) {
 	checkAccountTable()
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	db, err := connect()
 	if err != nil {
-		panic(err.Error())
+		fmt.Println(err.Error())
+		return nil, err
 	}
 
 	var account account.Model
@@ -47,9 +50,10 @@ func (a *Account) Find(id int) (*account.Model, error) {
 // Store implementation
 func (a *Account) Store(account *account.Model) error {
 	checkAccountTable()
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	db, err := connect()
 	if err != nil {
-		panic(err.Error())
+		fmt.Println(err.Error())
+		return err
 	}
 
 	db.Table(accountTable).Create(account)

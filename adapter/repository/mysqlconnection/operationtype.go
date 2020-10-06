@@ -1,9 +1,9 @@
-package sqlite
+package mysqlconnection
 
 import (
+	"fmt"
+
 	"github.com/juniorrosul/pismo/operationtype"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 )
 
 // OperationType struct
@@ -12,14 +12,14 @@ type OperationType struct{}
 var operationTypeTable = "operation_types"
 
 func checkOperationTypeTable() {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
-
+	db, err := connect()
 	if err != nil {
-		panic(err.Error())
+		fmt.Println(err.Error())
+		return
 	}
 
 	if db.Migrator().HasTable(operationTypeTable) == false {
-		db.Table(operationTypeTable).AutoMigrate(&operationtype.Model{})
+		db.AutoMigrate(&operationtype.Model{})
 		operationTypes := []operationtype.Model{
 			{
 				ID:          1,
@@ -38,8 +38,7 @@ func checkOperationTypeTable() {
 				Description: "PAGAMENTO",
 			},
 		}
-
-		db.Table(operationTypeTable).Create(operationTypes)
+		db.Create(operationTypes)
 	}
 }
 
@@ -51,13 +50,14 @@ func (ot *OperationType) Initialize() {
 // Find implementation
 func (ot *OperationType) Find(id int) (*operationtype.Model, error) {
 	checkOperationTypeTable()
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	db, err := connect()
 	if err != nil {
-		panic(err.Error())
+		fmt.Println(err.Error())
+		return nil, err
 	}
 
 	var operationType operationtype.Model
-	result := db.Table(operationTypeTable).First(&operationType, id)
+	result := db.First(&operationType, id)
 	if result.Error != nil {
 		return nil, result.Error
 	}
@@ -67,9 +67,10 @@ func (ot *OperationType) Find(id int) (*operationtype.Model, error) {
 
 // Store implementation
 func (ot *OperationType) Store(operationType *operationtype.Model) error {
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	db, err := connect()
 	if err != nil {
-		panic(err.Error())
+		fmt.Println(err.Error())
+		return err
 	}
 
 	db.Table(operationTypeTable).Create(operationType)
