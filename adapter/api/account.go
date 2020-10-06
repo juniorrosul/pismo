@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"strings"
 
-	repository "madsonjr.com/pismo/adapter/repository/sqlite"
-	"madsonjr.com/pismo/adapter/serializer"
+	repository "github.com/juniorrosul/pismo/adapter/repository/sqlite"
+	"github.com/juniorrosul/pismo/adapter/serializer"
 )
 
 type accountHandler struct {

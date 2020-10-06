@@ -3,7 +3,7 @@ package serializer
 import (
 	"encoding/json"
 
-	"madsonjr.com/pismo/transaction"
+	"github.com/juniorrosul/pismo/transaction"
 )
 
 type Transaction struct{}

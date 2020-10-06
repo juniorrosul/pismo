@@ -3,7 +3,7 @@ package transaction
 import (
 	"time"
 
-	"madsonjr.com/pismo/account"
+	"github.com/juniorrosul/pismo/account"
 )
 
 // Model struct

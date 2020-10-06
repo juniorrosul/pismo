@@ -1,4 +1,4 @@
-module madsonjr.com/pismo
+module github.com/juniorrosul/pismo
 
 go 1.15
 
