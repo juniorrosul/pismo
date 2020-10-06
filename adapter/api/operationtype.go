@@ -1,11 +1,11 @@
 package api
 
 import (
-	"github.com/juniorrosul/pismo/adapter/repository/sqlite"
+	"github.com/juniorrosul/pismo/adapter/repository/mysqlconnection"
 )
 
 type operationTypeHandler struct {
-	repository sqlite.OperationType
+	repository mysqlconnection.OperationType
 }
 
 // OperationTypeHandler initializer

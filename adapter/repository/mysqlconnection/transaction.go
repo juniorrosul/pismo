@@ -16,18 +16,16 @@ func (t *Transaction) Initialize() error {
 }
 
 func checkTransactionTable() {
-	db = connect()
-	defer db.Close()
+	db := connect()
 
 	if db.Migrator().HasTable(transactionTable) == false {
-		db.Table(transactionTable).AutoMigrate(&transaction.Model{})
+		db.AutoMigrate(&transaction.Model{})
 	}
 }
 
 // Store implementation
 func (t *Transaction) Store(transaction *transaction.Model) error {
-	db = connect()
-	defer db.Close()
+	db := connect()
 
 	db.Table(transactionTable).Create(transaction)
 	return nil

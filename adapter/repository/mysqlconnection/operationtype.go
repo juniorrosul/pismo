@@ -10,8 +10,7 @@ type OperationType struct{}
 var operationTypeTable = "operation_types"
 
 func checkOperationTypeTable() {
-	db = connect()
-	defer db.Close()
+	db := connect()
 
 	if db.Migrator().HasTable(operationTypeTable) == false {
 		db.Table(operationTypeTable).AutoMigrate(&operationtype.Model{})
@@ -46,11 +45,10 @@ func (ot *OperationType) Initialize() {
 // Find implementation
 func (ot *OperationType) Find(id int) (*operationtype.Model, error) {
 	checkOperationTypeTable()
-	db = connect()
-	defer db.Close()
+	db := connect()
 
 	var operationType operationtype.Model
-	result := db.Table(operationTypeTable).First(&operationType, id)
+	result := db.First(&operationType, id)
 	if result.Error != nil {
 		return nil, result.Error
 	}
@@ -60,8 +58,7 @@ func (ot *OperationType) Find(id int) (*operationtype.Model, error) {
 
 // Store implementation
 func (ot *OperationType) Store(operationType *operationtype.Model) error {
-	db = connect()
-	defer db.Close()
+	db := connect()
 
 	db.Table(operationTypeTable).Create(operationType)
 	return nil

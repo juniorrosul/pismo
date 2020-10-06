@@ -5,12 +5,12 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/juniorrosul/pismo/adapter/repository/sqlite"
+	"github.com/juniorrosul/pismo/adapter/repository/mysqlconnection"
 	"github.com/juniorrosul/pismo/adapter/serializer"
 )
 
 type transactionHandler struct {
-	repository sqlite.Transaction
+	repository mysqlconnection.Transaction
 	serializer serializer.Transaction
 }
 

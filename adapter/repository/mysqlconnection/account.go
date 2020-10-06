@@ -4,25 +4,16 @@ import (
 	"github.com/juniorrosul/pismo/account"
 )
 
-const (
-	dbName     = "pismo"
-	dbHost     = "localhost"
-	dbUser     = "root"
-	dbPassword = "root"
-	dbPort     = "3306"
-)
-
 // Account struct
 type Account struct{}
 
 var accountTable = "accounts"
 
 func checkAccountTable() {
-	db = connect()
-	defer db.Close()
+	db := connect()
 
 	if db.Migrator().HasTable(accountTable) == false {
-		db.Table(accountTable).AutoMigrate(&account.Model{})
+		db.AutoMigrate(&account.Model{})
 	}
 }
 
@@ -34,8 +25,7 @@ func (a *Account) Initialize() {
 // Find implementation
 func (a *Account) Find(id int) (*account.Model, error) {
 	checkAccountTable()
-	db = connect()
-	defer db.Close()
+	db := connect()
 
 	var account account.Model
 	result := db.Table(accountTable).First(&account, id)
@@ -49,8 +39,7 @@ func (a *Account) Find(id int) (*account.Model, error) {
 // Store implementation
 func (a *Account) Store(account *account.Model) error {
 	checkAccountTable()
-	db = connect()
-	defer db.Close()
+	db := connect()
 
 	db.Table(accountTable).Create(account)
 	return nil
